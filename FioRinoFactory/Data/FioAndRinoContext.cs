@@ -50,7 +50,7 @@ namespace FioRinoFactory.Data
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data source = AKHMEDOV-SHAHZO;initial catalog = FioAndRino; integrated security = true;MultipleActiveResultSets=True;");
+                optionsBuilder.UseSqlServer("Server=135.125.239.81,1433;Database=FioAndRino;User ID=sa;Password=MssqlAdmin2021;");
             }
         }
 

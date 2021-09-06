@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace FioRinoFactory.Controller
 {
-    [Route("api/[controller]")]
+    [Route("webapi/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
