@@ -1,0 +1,1 @@
+dotnet /Users/mkotiuk/SPToCore-master/SPToCore-master/SPToCore/bin/Debug/netcoreapp3.1/SPToCore.dll scan -cnn "Server=127.0.0.1,1530;Database=avo;User ID=sa;Password=Test123!" -sch "*" -nsp Avo.LogicLayer.Data -ctx mcgcalcContext -sf Model -pf ./Models/ -f SPToCoreContext.cs 

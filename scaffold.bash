@@ -1,0 +1,1 @@
+dotnet ef dbcontext scaffold "Data source = AKHMEDOV-SHAHZO;initial catalog = FioAndRino; integrated security = true" Microsoft.EntityFrameworkCore.SqlServer --context-dir Data --output-dir Models --force

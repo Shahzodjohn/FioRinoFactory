@@ -1,0 +1,7 @@
+2021-09-03 17:08:29 - EXCEPTION 1 / 5: ChangeColumnProperty - Не удалось определить метаданные, поскольку инструкция "EXEC %%ExtendedPropertySet().UpdateValue(Name = @name, Value = @value, Level0type = @level0type, Lev" в процедуре "sp_updateextendedproperty" не поддерживает обнаружение метаданных.
+2021-09-03 17:08:29 - EXCEPTION 2 / 5: ChangeTableProperty - Не удалось определить метаданные, поскольку инструкция "EXEC %%ExtendedPropertySet().UpdateValue(Name = @name, Value = @value, Level0type = @level0type, Lev" в процедуре "sp_updateextendedproperty" не поддерживает обнаружение метаданных.
+2021-09-03 17:08:29 - EXCEPTION 3 / 5: EXPOSE_dm_InsertingOrderIdProductsId - Недопустимое имя столбца "WzMagazynId".
+Не удалось выполнить анализ пакета из-за ошибок компиляции.
+Не удалось определить метаданные, поскольку каждый кодовый путь вызывает ошибку. (См. предыдущие ошибки.)
+2021-09-03 17:08:29 - EXCEPTION 4 / 5: FixExtendedProperties - Не удалось определить метаданные, поскольку инструкция "EXEC %%ExtendedPropertySet().UpdateValue(Name = @name, Value = @value, Level0type = @level0type, Lev" в процедуре "sp_updateextendedproperty" не поддерживает обнаружение метаданных.
+2021-09-03 17:08:29 - EXCEPTION 5 / 5: GetLinkedEntities - Не удалось определить метаданные, поскольку инструкция "exec sp_executesql @sql" в процедуре "GetLinkedEntities" содержит динамический код SQL.  Рекомендуется использовать предложение WITH RESULT SETS, чтобы явно описать результирующий набор.
