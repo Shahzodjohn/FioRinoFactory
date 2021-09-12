@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FioRinoFactory.Repositories
 {
-     public interface IUserRepository
+    public interface IUserRepository
     {
         DmUser Create(DmUser user);
         DmUser GetByEmail(string email);

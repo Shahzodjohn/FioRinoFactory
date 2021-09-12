@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FioRinoFactory.Repositories
 {
-    public  class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly FioAndRinoContext _context;
 

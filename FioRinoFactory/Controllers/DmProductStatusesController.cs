@@ -8,11 +8,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FioRinoFactory.Controller
+namespace FioRinoFactory.Controllers
 {
     [ApiController]
     [Route("webapi/[controller]")]
-    public class DmProductStatusesController : ControllerBase
+    public class DmProductStatusesController : Controller
     {
         private readonly FioAndRinoContext _context;
 

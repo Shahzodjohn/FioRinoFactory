@@ -50,7 +50,7 @@ namespace FioRinoFactory.Data
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=135.125.239.81,1433;Database=FioAndRino;User ID=sa;Password=MssqlAdmin2021;");
+                optionsBuilder.UseSqlServer("Data source = AKHMEDOV-SHAHZO;initial catalog = FioAndRino; integrated security = true;MultipleActiveResultSets=True;");
             }
         }
 
@@ -411,7 +411,7 @@ namespace FioRinoFactory.Data
                 entity.Property(e => e.RoleId).HasDefaultValueSql("((1))");
 
                 entity.HasOne(d => d.Position)
-                    .WithMany(p => p.InversePosition)
+                    .WithMany(p => p.DmUsers)
                     .HasForeignKey(d => d.PositionId)
                     .HasConstraintName("FK__dm_Users__Positi__0FA2421A");
 
@@ -449,7 +449,7 @@ namespace FioRinoFactory.Data
                 entity.HasOne(d => d.Reciever)
                     .WithMany(p => p.DmWzMagazynRecievers)
                     .HasForeignKey(d => d.RecieverId)
-                    .HasConstraintName("FK__dm_WzMaga__Recie__75235608");
+                    .HasConstraintName("FK__dm_WzMaga__Recie__30992191");
 
                 entity.HasOne(d => d.Sender)
                     .WithMany(p => p.DmWzMagazynSenders)

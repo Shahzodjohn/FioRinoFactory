@@ -1,5 +1,4 @@
-﻿
-using FioRinoFactory.Data;
+﻿using FioRinoFactory.Data;
 using FioRinoFactory.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,34 +8,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FioRinoFactory.Controller
+namespace FioRinoFactory.Controllers
 {
     [ApiController]
     [Route("webapi/[controller]")]
-    public class DmSizesController : ControllerBase
+    public class DmRolesController : Controller
     {
         private readonly FioAndRinoContext _context;
 
-        public DmSizesController(FioAndRinoContext context)
+        public DmRolesController(FioAndRinoContext context)
         {
             _context = context;
         }
 
 
         [HttpPost]
-        public async Task<ActionResult<DmSize>> PostDmSizes(DmSize dmSizes)
+        public async Task<ActionResult<DmRole>> PostDmRoles(DmRole dmRoles)
         {
-            _context.DmSizes.Add(dmSizes);
+            _context.DmRoles.Add(dmRoles);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDmSizes", new { id = dmSizes.Id }, dmSizes);
+            return CreatedAtAction("GetDmRoles", new { id = dmRoles.Id }, dmRoles);
         }
 
 
         [HttpGet("all/{linkString?}")]
-        public async Task<ActionResult<IEnumerable<DmSize>>> GetAllDmSizes(string linkString = null)
+        public async Task<ActionResult<IEnumerable<DmRole>>> GetAllDmRoles(string linkString = null)
         {
-            IQueryable<DmSize> finalContext = _context.DmSizes;
+            IQueryable<DmRole> finalContext = _context.DmRoles;
 
             if (!string.IsNullOrWhiteSpace(linkString))
             {
@@ -50,9 +49,9 @@ namespace FioRinoFactory.Controller
         }
 
         [HttpGet("{id}/{linkString?}")]
-        public async Task<ActionResult<DmSize>> GetDmSizes(int id, string linkString = null)
+        public async Task<ActionResult<DmRole>> GetDmRoles(int id, string linkString = null)
         {
-            IQueryable<DmSize> finalContext = _context.DmSizes;
+            IQueryable<DmRole> finalContext = _context.DmRoles;
 
             if (!string.IsNullOrWhiteSpace(linkString))
             {
@@ -62,26 +61,26 @@ namespace FioRinoFactory.Controller
                 }
             }
 
-            var dmSizes = await finalContext.FirstOrDefaultAsync(e => e.Id == id);
+            var dmRoles = await finalContext.FirstOrDefaultAsync(e => e.Id == id);
 
-            if (dmSizes == null)
+            if (dmRoles == null)
             {
                 return NotFound();
             }
 
-            return dmSizes;
+            return dmRoles;
         }
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDmSizes(int id, DmSize dmSizes)
+        public async Task<IActionResult> PutDmRoles(int id, DmRole dmRoles)
         {
-            if (id != dmSizes.Id)
+            if (id != dmRoles.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(dmSizes).State = EntityState.Modified;
+            _context.Entry(dmRoles).State = EntityState.Modified;
 
             try
             {
@@ -89,7 +88,7 @@ namespace FioRinoFactory.Controller
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!DmSizesExists(id))
+                if (!DmRolesExists(id))
                 {
                     return NotFound();
                 }
@@ -104,25 +103,24 @@ namespace FioRinoFactory.Controller
 
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteDmSizes(int id)
+        public async Task<IActionResult> DeleteDmRoles(int id)
         {
-            var dmSizes = await _context.DmSizes.FindAsync(id);
-            if (dmSizes == null)
+            var dmRoles = await _context.DmRoles.FindAsync(id);
+            if (dmRoles == null)
             {
                 return NotFound();
             }
 
-            _context.DmSizes.Remove(dmSizes);
+            _context.DmRoles.Remove(dmRoles);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
 
-        private bool DmSizesExists(int id)
+        private bool DmRolesExists(int id)
         {
-            return _context.DmSizes.Any(e => e.Id == id);
+            return _context.DmRoles.Any(e => e.Id == id);
         }
     }
-
 }

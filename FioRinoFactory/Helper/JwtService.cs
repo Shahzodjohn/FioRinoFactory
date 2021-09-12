@@ -10,11 +10,11 @@ namespace FioRinoFactory.Helper
 {
     public class JwtService
     {
-        private  string secureKey = "this is a secure key";
+        private string secureKey = "this is a secure key";
 
         public object JwtHeader { get; private set; }
 
-        public  string Generate(int Id)
+        public string Generate(int Id)
         {
             var symetricSecureKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secureKey));
             var credentials = new SigningCredentials(symetricSecureKey, SecurityAlgorithms.HmacSha256Signature);

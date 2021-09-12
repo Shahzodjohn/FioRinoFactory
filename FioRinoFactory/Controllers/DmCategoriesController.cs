@@ -8,32 +8,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FioRinoFactory.Controller
+namespace FioRinoFactory.Controllers
 {
-    public class DmOrderStatusesController : ControllerBase
+    [ApiController]
+    [Route("webapi/[controller]")]
+    public class DmCategoriesController : Controller
     {
         private readonly FioAndRinoContext _context;
 
-        public DmOrderStatusesController(FioAndRinoContext context)
+        public DmCategoriesController(FioAndRinoContext context)
         {
             _context = context;
         }
 
 
         [HttpPost]
-        public async Task<ActionResult<DmOrderStatus>> PostDmOrderStatuses(DmOrderStatus dmOrderStatuses)
+        public async Task<ActionResult<DmCategory>> PostDmCategories(DmCategory dmCategories)
         {
-            _context.DmOrderStatuses.Add(dmOrderStatuses);
+            _context.DmCategories.Add(dmCategories);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDmOrderStatuses", new { id = dmOrderStatuses.Id }, dmOrderStatuses);
+            return CreatedAtAction("GetDmCategories", new { id = dmCategories.Id }, dmCategories);
         }
 
 
         [HttpGet("all/{linkString?}")]
-        public async Task<ActionResult<IEnumerable<DmOrderStatus>>> GetAllDmOrderStatuses(string linkString = null)
+        public async Task<ActionResult<IEnumerable<DmCategory>>> GetAllDmCategories(string linkString = null)
         {
-            IQueryable<DmOrderStatus> finalContext = _context.DmOrderStatuses;
+            IQueryable<DmCategory> finalContext = _context.DmCategories;
 
             if (!string.IsNullOrWhiteSpace(linkString))
             {
@@ -47,9 +49,9 @@ namespace FioRinoFactory.Controller
         }
 
         [HttpGet("{id}/{linkString?}")]
-        public async Task<ActionResult<DmOrderStatus>> GetDmOrderStatuses(int id, string linkString = null)
+        public async Task<ActionResult<DmCategory>> GetDmCategories(int id, string linkString = null)
         {
-            IQueryable<DmOrderStatus> finalContext = _context.DmOrderStatuses;
+            IQueryable<DmCategory> finalContext = _context.DmCategories;
 
             if (!string.IsNullOrWhiteSpace(linkString))
             {
@@ -59,26 +61,26 @@ namespace FioRinoFactory.Controller
                 }
             }
 
-            var dmOrderStatuses = await finalContext.FirstOrDefaultAsync(e => e.Id == id);
+            var dmCategories = await finalContext.FirstOrDefaultAsync(e => e.Id == id);
 
-            if (dmOrderStatuses == null)
+            if (dmCategories == null)
             {
                 return NotFound();
             }
 
-            return dmOrderStatuses;
+            return dmCategories;
         }
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDmOrderStatuses(int id, DmOrderStatus dmOrderStatuses)
+        public async Task<IActionResult> PutDmCategories(int id, DmCategory dmCategories)
         {
-            if (id != dmOrderStatuses.Id)
+            if (id != dmCategories.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(dmOrderStatuses).State = EntityState.Modified;
+            _context.Entry(dmCategories).State = EntityState.Modified;
 
             try
             {
@@ -86,7 +88,7 @@ namespace FioRinoFactory.Controller
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!DmOrderStatusesExists(id))
+                if (!DmCategoriesExists(id))
                 {
                     return NotFound();
                 }
@@ -101,24 +103,24 @@ namespace FioRinoFactory.Controller
 
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteDmOrderStatuses(int id)
+        public async Task<IActionResult> DeleteDmCategories(int id)
         {
-            var dmOrderStatuses = await _context.DmOrderStatuses.FindAsync(id);
-            if (dmOrderStatuses == null)
+            var dmCategories = await _context.DmCategories.FindAsync(id);
+            if (dmCategories == null)
             {
                 return NotFound();
             }
 
-            _context.DmOrderStatuses.Remove(dmOrderStatuses);
+            _context.DmCategories.Remove(dmCategories);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
 
-        private bool DmOrderStatusesExists(int id)
+        private bool DmCategoriesExists(int id)
         {
-            return _context.DmOrderStatuses.Any(e => e.Id == id);
+            return _context.DmCategories.Any(e => e.Id == id);
         }
     }
 }

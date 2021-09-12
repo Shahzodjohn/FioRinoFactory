@@ -3,6 +3,7 @@ using FioRinoFactory.DTOs;
 using FioRinoFactory.Helper;
 using FioRinoFactory.Models;
 using FioRinoFactory.Repositories;
+using FioRinoFactory.ServiceTEST;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,42 +11,54 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FioRinoFactory.Controller
+namespace FioRinoFactory.Controllers
 {
-    [Route("webapi/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
         private readonly IUserRepository _repository;
         private readonly JwtService _JwtService;
         private readonly FioAndRinoContext _context;
-        //private readonly RoleManager<IdentityRole> _roleManager;
-        //private readonly UserManager<IdentityUser> _userManager;
+        private readonly IRegisterService _service;
 
-        public AuthController(IUserRepository repository, JwtService jwtService)
+        public AuthController(IUserRepository repository, JwtService jwtService, FioAndRinoContext context, IRegisterService service)
         {
             _repository = repository;
             _JwtService = jwtService;
+            _context = context;
+            _service = service;
         }
         [HttpPost("RegistrationUser")]
         public IActionResult RegistrationUser(RegisterDTO dto)
         {
-            var user = new DmUser
-            {
-                FirstName = dto.FirstName,
-                LastName = dto.LastName,
-                Password = BCrypt.Net.BCrypt.HashPassword(dto.Password),
-                Email = dto.Email,
-                PhoneNumber = dto.PhoneNumber,
-                RoleId = dto.RoleId,
-                PositionId = dto.PositionId
-            };
+            //var sir = _service.RegistrationUser(dto);
+            // if(sir != null)
+            // {
+            //     return BadRequest(new { message = "This email is already used!" });
+            // }
 
-            if (user.Email != null)
-            {
-                return BadRequest(new { message = "This email already used!"});
-            }
-            return Created("Success", _repository.Create(user));
+            // return Created("Success", _service.RegistrationUser(dto));
+            #region return this back
+
+            //var user = new DmUser
+            //{
+            //    FirstName = dto.FirstName,
+            //    LastName = dto.LastName,
+            //    Password = BCrypt.Net.BCrypt.HashPassword(dto.Password),
+            //    Email = dto.Email,
+            //    PhoneNumber = dto.PhoneNumber,
+            //    RoleId = dto.RoleId,
+            //    PositionId = dto.PositionId
+            //};
+            //var isusedemail = _repository.GetByEmail(dto.Email);
+            //if (isusedemail != null)
+            //{
+            //    return BadRequest(new { message = "this email is already used!" });
+            //}
+
+            //return Created("success", _repository.Create(user));
+            #endregion
         }
         [HttpPost("Login")]
         public IActionResult Login(LoginDTO dto)

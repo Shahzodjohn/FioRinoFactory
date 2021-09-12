@@ -1,4 +1,5 @@
 ﻿using FioRinoFactory.Data;
+using FioRinoFactory.Model;
 using FioRinoFactory.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,11 +9,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FioRinoFactory.Controller
+namespace FioRinoFactory.Controllers
 {
     [ApiController]
     [Route("webapi/[controller]")]
-    public class DmOrderArchievumController : ControllerBase
+    public class DmOrderArchievumController : Controller
     {
         private readonly FioAndRinoContext _context;
 
@@ -115,6 +116,31 @@ namespace FioRinoFactory.Controller
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        public class InsertToOrderArchievumParams { public int WzMagazynId { get; set; } }
+        // EXPOSE_dm_OrderArchievum_InsertToOrderArchievum
+
+        [HttpPost("InsertToOrderArchievum")]
+        public async Task<ActionResult> PostDmOrderArchievumInsertToOrderArchievum([FromBody] InsertToOrderArchievumParams parameters)
+        {
+            using (SPToCoreContext db = new SPToCoreContext())
+            {
+                db.EXPOSE_dm_OrderArchievum_InsertToOrderArchievum /**/ (parameters.WzMagazynId);
+                return Ok();
+            }
+        }
+
+        // EXPOSE_dm_OrderArchievum_SelectingALLFormAchievum
+
+        [HttpPost("SelectingALLFormAchievum")]
+        public async Task<ActionResult<List<SPToCoreContext.EXPOSE_dm_OrderArchievum_SelectingALLFormAchievumResult>>> PostDmOrderArchievumSelectingALLFormAchievum()
+        {
+            using (SPToCoreContext db = new SPToCoreContext())
+            {
+                return await db.EXPOSE_dm_OrderArchievum_SelectingALLFormAchievumAsync /**/ ();
+
+            }
         }
 
 

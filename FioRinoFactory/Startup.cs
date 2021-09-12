@@ -1,6 +1,8 @@
+//using FioRinoFactory.Data;
 using FioRinoFactory.Data;
 using FioRinoFactory.Helper;
 using FioRinoFactory.Repositories;
+using FioRinoFactory.ServiceTEST;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,6 +35,7 @@ namespace FioRinoFactory
             services.AddDbContext<FioAndRinoContext>(op =>
                                  op.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddTransient<IRegisterService, RegisterService>();
             services.AddScoped<JwtService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>

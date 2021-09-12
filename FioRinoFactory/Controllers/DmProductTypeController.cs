@@ -8,34 +8,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FioRinoFactory.Controller
+namespace FioRinoFactory.Controllers
 {
     [ApiController]
     [Route("webapi/[controller]")]
-    public class DmPositionsController : ControllerBase
+    public class DmProductTypeController : Controller
     {
         private readonly FioAndRinoContext _context;
 
-        public DmPositionsController(FioAndRinoContext context)
+        public DmProductTypeController(FioAndRinoContext context)
         {
             _context = context;
         }
 
 
         [HttpPost]
-        public async Task<ActionResult<DmPosition>> PostDmPositions(DmPosition dmPositions)
+        public async Task<ActionResult<DmProductType>> PostDmProductType(DmProductType dmProductType)
         {
-            _context.DmPositions.Add(dmPositions);
+            _context.DmProductTypes.Add(dmProductType);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDmPositions", new { id = dmPositions.Id }, dmPositions);
+            return CreatedAtAction("GetDmProductType", new { id = dmProductType.Id }, dmProductType);
         }
 
 
         [HttpGet("all/{linkString?}")]
-        public async Task<ActionResult<IEnumerable<DmPosition>>> GetAllDmPositions(string linkString = null)
+        public async Task<ActionResult<IEnumerable<DmProductType>>> GetAllDmProductType(string linkString = null)
         {
-            IQueryable<DmPosition> finalContext = _context.DmPositions;
+            IQueryable<DmProductType> finalContext = _context.DmProductTypes;
 
             if (!string.IsNullOrWhiteSpace(linkString))
             {
@@ -49,9 +49,9 @@ namespace FioRinoFactory.Controller
         }
 
         [HttpGet("{id}/{linkString?}")]
-        public async Task<ActionResult<DmPosition>> GetDmPositions(int id, string linkString = null)
+        public async Task<ActionResult<DmProductType>> GetDmProductType(int id, string linkString = null)
         {
-            IQueryable<DmPosition> finalContext = _context.DmPositions;
+            IQueryable<DmProductType> finalContext = _context.DmProductTypes;
 
             if (!string.IsNullOrWhiteSpace(linkString))
             {
@@ -61,26 +61,26 @@ namespace FioRinoFactory.Controller
                 }
             }
 
-            var dmPositions = await finalContext.FirstOrDefaultAsync(e => e.Id == id);
+            var dmProductType = await finalContext.FirstOrDefaultAsync(e => e.Id == id);
 
-            if (dmPositions == null)
+            if (dmProductType == null)
             {
                 return NotFound();
             }
 
-            return dmPositions;
+            return dmProductType;
         }
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDmPositions(int id, DmPosition dmPositions)
+        public async Task<IActionResult> PutDmProductType(int id, DmProductType dmProductType)
         {
-            if (id != dmPositions.Id)
+            if (id != dmProductType.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(dmPositions).State = EntityState.Modified;
+            _context.Entry(dmProductType).State = EntityState.Modified;
 
             try
             {
@@ -88,7 +88,7 @@ namespace FioRinoFactory.Controller
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!DmPositionsExists(id))
+                if (!DmProductTypeExists(id))
                 {
                     return NotFound();
                 }
@@ -103,24 +103,24 @@ namespace FioRinoFactory.Controller
 
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteDmPositions(int id)
+        public async Task<IActionResult> DeleteDmProductType(int id)
         {
-            var dmPositions = await _context.DmPositions.FindAsync(id);
-            if (dmPositions == null)
+            var dmProductType = await _context.DmProductTypes.FindAsync(id);
+            if (dmProductType == null)
             {
                 return NotFound();
             }
 
-            _context.DmPositions.Remove(dmPositions);
+            _context.DmProductTypes.Remove(dmProductType);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
 
-        private bool DmPositionsExists(int id)
+        private bool DmProductTypeExists(int id)
         {
-            return _context.DmPositions.Any(e => e.Id == id);
+            return _context.DmProductTypes.Any(e => e.Id == id);
         }
     }
 }

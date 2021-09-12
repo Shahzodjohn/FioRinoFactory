@@ -18,7 +18,6 @@ namespace FioRinoFactory.Models
             DmOrderSenders = new HashSet<DmOrder>();
             DmWzMagazynRecievers = new HashSet<DmWzMagazyn>();
             DmWzMagazynSenders = new HashSet<DmWzMagazyn>();
-            InversePosition = new HashSet<DmUser>();
         }
 
         public int Id { get; set; }
@@ -30,7 +29,7 @@ namespace FioRinoFactory.Models
         public int? RoleId { get; set; }
         public int? PositionId { get; set; }
 
-        public virtual DmUser Position { get; set; }
+        public virtual DmPosition Position { get; set; }
         public virtual DmRole Role { get; set; }
         public virtual ICollection<DmFileWz> DmFileWzs { get; set; }
         public virtual ICollection<DmOrderArchievum> DmOrderArchievumRecievers { get; set; }
@@ -41,6 +40,5 @@ namespace FioRinoFactory.Models
         public virtual ICollection<DmOrder> DmOrderSenders { get; set; }
         public virtual ICollection<DmWzMagazyn> DmWzMagazynRecievers { get; set; }
         public virtual ICollection<DmWzMagazyn> DmWzMagazynSenders { get; set; }
-        public virtual ICollection<DmUser> InversePosition { get; set; }
     }
 }

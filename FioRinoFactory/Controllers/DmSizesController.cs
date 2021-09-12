@@ -8,34 +8,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FioRinoFactory.Controller
+namespace FioRinoFactory.Controllers
 {
     [ApiController]
     [Route("webapi/[controller]")]
-    public class DmUsersController : ControllerBase
+    public class DmSizesController : Controller
     {
         private readonly FioAndRinoContext _context;
 
-        public DmUsersController(FioAndRinoContext context)
+        public DmSizesController(FioAndRinoContext context)
         {
             _context = context;
         }
 
 
         [HttpPost]
-        public async Task<ActionResult<DmUser>> PostDmUsers(DmUser dmUsers)
+        public async Task<ActionResult<DmSize>> PostDmSizes(DmSize dmSizes)
         {
-            _context.DmUsers.Add(dmUsers);
+            _context.DmSizes.Add(dmSizes);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDmUsers", new { id = dmUsers.Id }, dmUsers);
+            return CreatedAtAction("GetDmSizes", new { id = dmSizes.Id }, dmSizes);
         }
 
 
         [HttpGet("all/{linkString?}")]
-        public async Task<ActionResult<IEnumerable<DmUser>>> GetAllDmUsers(string linkString = null)
+        public async Task<ActionResult<IEnumerable<DmSize>>> GetAllDmSizes(string linkString = null)
         {
-            IQueryable<DmUser> finalContext = _context.DmUsers;
+            IQueryable<DmSize> finalContext = _context.DmSizes;
 
             if (!string.IsNullOrWhiteSpace(linkString))
             {
@@ -49,9 +49,9 @@ namespace FioRinoFactory.Controller
         }
 
         [HttpGet("{id}/{linkString?}")]
-        public async Task<ActionResult<DmUser>> GetDmUsers(int id, string linkString = null)
+        public async Task<ActionResult<DmSize>> GetDmSizes(int id, string linkString = null)
         {
-            IQueryable<DmUser> finalContext = _context.DmUsers;
+            IQueryable<DmSize> finalContext = _context.DmSizes;
 
             if (!string.IsNullOrWhiteSpace(linkString))
             {
@@ -61,26 +61,26 @@ namespace FioRinoFactory.Controller
                 }
             }
 
-            var dmUsers = await finalContext.FirstOrDefaultAsync(e => e.Id == id);
+            var dmSizes = await finalContext.FirstOrDefaultAsync(e => e.Id == id);
 
-            if (dmUsers == null)
+            if (dmSizes == null)
             {
                 return NotFound();
             }
 
-            return dmUsers;
+            return dmSizes;
         }
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDmUsers(int id, DmUser dmUsers)
+        public async Task<IActionResult> PutDmSizes(int id, DmSize dmSizes)
         {
-            if (id != dmUsers.Id)
+            if (id != dmSizes.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(dmUsers).State = EntityState.Modified;
+            _context.Entry(dmSizes).State = EntityState.Modified;
 
             try
             {
@@ -88,7 +88,7 @@ namespace FioRinoFactory.Controller
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!DmUsersExists(id))
+                if (!DmSizesExists(id))
                 {
                     return NotFound();
                 }
@@ -103,24 +103,24 @@ namespace FioRinoFactory.Controller
 
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteDmUsers(int id)
+        public async Task<IActionResult> DeleteDmSizes(int id)
         {
-            var dmUsers = await _context.DmUsers.FindAsync(id);
-            if (dmUsers == null)
+            var dmSizes = await _context.DmSizes.FindAsync(id);
+            if (dmSizes == null)
             {
                 return NotFound();
             }
 
-            _context.DmUsers.Remove(dmUsers);
+            _context.DmSizes.Remove(dmSizes);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
 
-        private bool DmUsersExists(int id)
+        private bool DmSizesExists(int id)
         {
-            return _context.DmUsers.Any(e => e.Id == id);
+            return _context.DmSizes.Any(e => e.Id == id);
         }
     }
 }

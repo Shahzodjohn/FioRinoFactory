@@ -1,4 +1,5 @@
 ﻿using FioRinoFactory.Data;
+using FioRinoFactory.Model;
 using FioRinoFactory.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,11 +9,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FioRinoFactory.Controller
+namespace FioRinoFactory.Controllers
 {
     [ApiController]
     [Route("webapi/[controller]")]
-    public class DmWzMagazynController : ControllerBase
+    public class DmWzMagazynController : Controller
     {
         private readonly FioAndRinoContext _context;
 
@@ -115,6 +116,49 @@ namespace FioRinoFactory.Controller
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        public class ListOfWzOrdersInWZMAGAZYNParams { public int WzMagazynId { get; set; } }
+        // EXPOSE_dm_WzMagazyn_ListOfWzOrdersInWZMAGAZYN
+
+        [HttpPost("ListOfWzOrdersInWZMAGAZYN")]
+        public async Task<ActionResult<List<SPToCoreContext.EXPOSE_dm_WzMagazyn_ListOfWzOrdersInWZMAGAZYNResult>>> PostDmWzMagazynListOfWzOrdersInWZMAGAZYN([FromBody] ListOfWzOrdersInWZMAGAZYNParams parameters)
+        {
+            using (SPToCoreContext db = new SPToCoreContext())
+            {
+                return await db.EXPOSE_dm_WzMagazyn_ListOfWzOrdersInWZMAGAZYNAsync /**/ (parameters.WzMagazynId);
+
+            }
+        }
+
+        public class UpdateProductAmountInStanMagazynuParams
+        {
+            public int WzMagazynId { get; set; }
+            public int Amount { get; set; }
+        }
+        // EXPOSE_dm_WzMagazyn_UpdateProductAmountInStanMagazynu
+
+        [HttpPost("UpdateProductAmountInStanMagazynu")]
+        public async Task<ActionResult> PostDmWzMagazynUpdateProductAmountInStanMagazynu([FromBody] UpdateProductAmountInStanMagazynuParams parameters)
+        {
+            using (SPToCoreContext db = new SPToCoreContext())
+            {
+                db.EXPOSE_dm_WzMagazyn_UpdateProductAmountInStanMagazynu /**/ (parameters.WzMagazynId, parameters.Amount);
+                return Ok();
+            }
+        }
+
+        public class SendingOrderToMagazynParams { public int OrderProductId { get; set; } }
+        // EXPOSE_dm_WzMagazyn_SendingOrderToMagazyn
+
+        [HttpPost("SendingOrderToMagazyn")]
+        public async Task<ActionResult> PostDmWzMagazynSendingOrderToMagazyn([FromBody] SendingOrderToMagazynParams parameters)
+        {
+            using (SPToCoreContext db = new SPToCoreContext())
+            {
+                 db.EXPOSE_dm_WzMagazyn_SendingOrderToMagazyn /**/ (parameters.OrderProductId);
+                return Ok();
+            }
         }
 
 
